@@ -24,14 +24,14 @@ def test(clase: Optional[int] = None) -> None:
 
 
 @app.command()
-def run(clase: int, ejercicio: Optional[str] = None) -> None:
+def run(clase: int, ejercicio: Optional[int] = None) -> None:
     """🚀 Run a class"""
     module_name = f"src.clase_{clase:02d}.main"
     if ejercicio:
         cmd = [
             sys.executable,
             "-c",
-            f"from {module_name} import run_exercise,{ejercicio}; run_exercise({ejercicio})",
+            f"from {module_name} import ejercicio_{ejercicio}; from src.core.main import run_exercise; run_exercise(ejercicio_{ejercicio})",
         ]
     else:
         cmd = [sys.executable, "-c", f"from {module_name} import main; main()"]
@@ -55,7 +55,8 @@ def new(numero: int) -> None:
     main_template = f'''"""Clase {numero:02d}"""
 
 import numpy as np
-
+import inspect
+from src.core.main import run_exercise, run_exercises_from_main
 
 def ejercicio_1():
     """Ejercicio 1"""
@@ -64,7 +65,8 @@ def ejercicio_1():
 
 def main():
     """Run all exercises"""
-    ejercicio_1()
+    module = inspect.currentframe()
+    run_exercises_from_main(module)
 
 
 if __name__ == "__main__":

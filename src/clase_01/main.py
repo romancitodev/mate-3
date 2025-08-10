@@ -3,10 +3,10 @@
 Este módulo contiene los ejercicios básicos de NumPy.
 """
 
-from typing import Callable
-import numpy as np
 import inspect
-from rich.console import Console
+
+import numpy as np
+from src.core.main import run_exercises_from_main
 
 
 def ejercicio_1() -> np.ndarray:
@@ -112,43 +112,8 @@ def ejercicio_12() -> tuple[np.ndarray, np.ndarray]:
 
 def main() -> None:
     """🚀 Función principal de la clase 01"""
-
-    console = Console()
-
-    current_module = inspect.currentframe()
-    if current_module:
-        module_globals = current_module.f_globals
-        ejercicios = [
-            func
-            for name, func in module_globals.items()
-            if name.startswith("ejercicio_") and callable(func)
-        ]
-
-        def extract_number(func):
-            name = func.__name__
-            return int(name.split("_")[1])
-
-        ejercicios.sort(key=extract_number)
-
-        for ejercicio in ejercicios:
-            console.print("\n" + "=" * 40)
-            run_exercise(ejercicio)
-
-    console.print("\n" + "=" * 40)
-    console.log("✅ ¡Todos los ejercicios completados!")
-
-
-def run_exercise(exercise: Callable):
-    console = Console()
-
-    console.print(f"🚀 Ejecutando {exercise.__name__} ...", style="bold green")
-    console.print(exercise.__doc__, style="dim")
-    console.print("-" * 40)
-    console.print("Logs de la función:", style="dim")
-    result = exercise()
-    console.print("-" * 40)
-    console.print(f"📊 Resultado de {exercise.__name__}", style="blue")
-    console.print(f"{result = }")
+    module = inspect.currentframe()
+    run_exercises_from_main(module)
 
 
 if __name__ == "__main__":

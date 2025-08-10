@@ -16,34 +16,41 @@ console = Console()
 def test(clase: Optional[int] = None) -> None:
     """🧪 Run tests"""
     cmd = [sys.executable, "-m", "pytest", "-v"]
-    
+
     if clase:
         cmd.append(f"tests/test_clase_{clase:02d}.py")
-    
+
     subprocess.run(cmd)
 
 
 @app.command()
-def run(clase: int) -> None:
+def run(clase: int, ejercicio: Optional[str] = None) -> None:
     """🚀 Run a class"""
-    module_name = f"mate3.clases.clase_{clase:02d}.main"
-    cmd = [sys.executable, "-c", f"from {module_name} import main; main()"]
+    module_name = f"src.clase_{clase:02d}.main"
+    if ejercicio:
+        cmd = [
+            sys.executable,
+            "-c",
+            f"from {module_name} import run_exercise,{ejercicio}; run_exercise({ejercicio})",
+        ]
+    else:
+        cmd = [sys.executable, "-c", f"from {module_name} import main; main()"]
     subprocess.run(cmd)
 
 
 @app.command()
 def new(numero: int) -> None:
     """📚 Create new class"""
-    clase_dir = Path(f"mate3/clases/clase_{numero:02d}")
+    clase_dir = Path(f"src/clase_{numero:02d}")
     test_file = Path(f"tests/test_clase_{numero:02d}.py")
-    
+
     # Create class directory
     clase_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # __init__.py
     init_content = f'"""Clase {numero:02d}"""\nfrom .main import *'
-    (clase_dir / "__init__.py").write_text(init_content, encoding='utf-8')
-    
+    (clase_dir / "__init__.py").write_text(init_content, encoding="utf-8")
+
     # main.py template
     main_template = f'''"""Clase {numero:02d}"""
 
@@ -63,13 +70,13 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-    (clase_dir / "main.py").write_text(main_template, encoding='utf-8')
-    
+    (clase_dir / "main.py").write_text(main_template, encoding="utf-8")
+
     # test template
     test_template = f'''"""Tests for clase {numero:02d}"""
 
 import pytest
-from mate3.clases.clase_{numero:02d} import *
+from src.clase_{numero:02d} import *
 
 
 def test_ejercicio_1():
@@ -77,8 +84,8 @@ def test_ejercicio_1():
     # Add your tests here
     assert True
 '''
-    test_file.write_text(test_template, encoding='utf-8')
-    
+    test_file.write_text(test_template, encoding="utf-8")
+
     console.print(f"✅ Clase {numero:02d} created!", style="green")
 
 

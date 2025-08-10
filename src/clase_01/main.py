@@ -3,14 +3,16 @@
 Este módulo contiene los ejercicios básicos de NumPy.
 """
 
+from typing import Callable
 import numpy as np
+import inspect
+from rich.console import Console
 
 
 def ejercicio_1() -> np.ndarray:
     """🎯 Ejercicio 1: Crear matriz básica"""
 
     resultado = np.array([[1, 2], [3, 4], [5, 6], [7, 8]], dtype=np.int8)
-    print(f"Matriz creada:\n{resultado}")
     print(
         f"{resultado.shape} - {resultado.size} - {resultado.size * resultado.itemsize} bytes"
     )
@@ -19,43 +21,38 @@ def ejercicio_1() -> np.ndarray:
 
 def ejercicio_2() -> np.ndarray:
     """🎯 Ejercicio 2: Usar arange y reshape"""
-
     resultado = np.arange(100, 200, 10).reshape(5, 2)
-    print(f"Matriz con arange:\n{resultado}")
     return resultado
 
 
 def ejercicio_3() -> np.ndarray:
     """🎯 Ejercicio 3: Obtener la 3er columna de cada matriz"""
     matriz = np.array([[11, 22, 33], [44, 55, 66], [77, 88, 99]], dtype=np.int8)
+    print(f"3er columna de la matriz:\n{matriz[:, 2]}")
     return matriz[:, 2]
 
 
 def ejercicio_4() -> np.ndarray:
     """🎯 Ejercicio 4: Crear matriz llena de un valor específico"""
     resultado = np.full((5,), fill_value=10)
-    print(resultado)
     return resultado
 
 
 def ejercicio_5() -> float:
     """🎯 Ejercicio 5: Generar un número aleatorio"""
     resultado = np.random.uniform()
-    print(resultado)
     return resultado
 
 
 def ejercicio_6() -> np.ndarray:
     """🎯 Ejercicio 6: Crear matriz con numeros pares"""
     resultado = np.arange(10, 51, 2)
-    print(resultado)
     return resultado
 
 
 def ejercicio_7() -> np.ndarray:
     """🎯 Ejercicio 7: Crear matriz con números aleatorios con dist normal"""
     resultado = np.random.randn(25)
-    print(resultado)
     return resultado
 
 
@@ -63,7 +60,6 @@ def ejercicio_8() -> np.ndarray:
     """🎯 Ejercicio 8: Reshape de matriz aleatoria"""
     resultado = ejercicio_7()
     resultado = resultado.reshape(5, 5)
-    print(resultado)
     return resultado
 
 
@@ -80,7 +76,6 @@ def ejercicio_9() -> np.ndarray:
     )
 
     resultado = m[::2, 1::2]
-    print(f"Matriz resultante:\n{resultado}")
     return resultado
 
 
@@ -100,7 +95,6 @@ def ejercicio_11() -> list[np.ndarray]:
     matrix = np.arange(10, 34, 1).reshape(8, 3)
     print(matrix)
     matrix = np.split(matrix, 4)
-    print(matrix)
     return matrix
 
 
@@ -119,7 +113,7 @@ def ejercicio_12() -> tuple[np.ndarray, np.ndarray]:
 def main() -> None:
     """🚀 Función principal de la clase 01"""
 
-    import inspect
+    console = Console()
 
     current_module = inspect.currentframe()
     if current_module:
@@ -136,14 +130,25 @@ def main() -> None:
 
         ejercicios.sort(key=extract_number)
 
-        for i, ejercicio in enumerate(ejercicios):
-            if i > 0:
-                print()
-            print(ejercicio.__doc__)
-            ejercicio()
-            print("-" * 40)
+        for ejercicio in ejercicios:
+            console.print("\n" + "=" * 40)
+            run_exercise(ejercicio)
 
-    print("\n✅ ¡Todos los ejercicios completados!")
+    console.print("\n" + "=" * 40)
+    console.log("✅ ¡Todos los ejercicios completados!")
+
+
+def run_exercise(exercise: Callable):
+    console = Console()
+
+    console.print(f"🚀 Ejecutando {exercise.__name__} ...", style="bold green")
+    console.print(exercise.__doc__, style="dim")
+    console.print("-" * 40)
+    console.print("Logs de la función:", style="dim")
+    result = exercise()
+    console.print("-" * 40)
+    console.print(f"📊 Resultado de {exercise.__name__}", style="blue")
+    console.print(f"{result = }")
 
 
 if __name__ == "__main__":

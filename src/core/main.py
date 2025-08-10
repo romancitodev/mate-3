@@ -1,4 +1,3 @@
-import inspect
 from types import FrameType
 from typing import Callable
 from rich.console import Console

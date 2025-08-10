@@ -56,7 +56,7 @@ def new(numero: int) -> None:
 
 import numpy as np
 import inspect
-from src.core.main import run_exercise, run_exercises_from_main
+from src.core.main import run_exercises_from_main
 
 def ejercicio_1():
     """Ejercicio 1"""
@@ -85,6 +85,9 @@ def test_ejercicio_1():
     """Test ejercicio 1"""
     # Add your tests here
     assert True
+
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])
 '''
     test_file.write_text(test_template, encoding="utf-8")
 

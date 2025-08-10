@@ -1,6 +1,6 @@
 set shell := ['nu', '-c']
 
-test args:
+test args="":
     uv run src/cli.py  test {{args}}
 
 run args: 

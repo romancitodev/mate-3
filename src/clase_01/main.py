@@ -64,7 +64,7 @@ def ejercicio_8() -> np.ndarray:
 
 
 def ejercicio_9() -> np.ndarray:
-    """🎯 Ejercicio 9: ..."""
+    """🎯 Ejercicio 9: Traer las filas pares y columnas impares"""
     m = np.array(
         [
             [3, 6, 9, 12],
@@ -80,7 +80,7 @@ def ejercicio_9() -> np.ndarray:
 
 
 def ejercicio_10() -> tuple[np.ndarray, np.ndarray]:
-    """🎯 Ejercicio 10: ..."""
+    """🎯 Ejercicio 10: Sumar y elevar al cuadrado dos matrices"""
     left = np.array([[5, 6, 9], [21, 18, 27]])
     right = np.array([[15, 33, 24], [4, 7, 1]])
     total_sum = left + right
@@ -91,7 +91,7 @@ def ejercicio_10() -> tuple[np.ndarray, np.ndarray]:
 
 
 def ejercicio_11() -> list[np.ndarray]:
-    """🎯 Ejercicio 11: ..."""
+    """🎯 Ejercicio 11: Dividir una matriz en 4 partes"""
     matrix = np.arange(10, 34, 1).reshape(8, 3)
     print(matrix)
     matrix = np.split(matrix, 4)
@@ -99,7 +99,7 @@ def ejercicio_11() -> list[np.ndarray]:
 
 
 def ejercicio_12() -> tuple[np.ndarray, np.ndarray]:
-    """🎯 Ejercicio 12: ..."""
+    """🎯 Ejercicio 12: Obtener el mínimo y máximo de una matriz"""
     mp = np.array([[34, 43, 73], [82, 22, 12], [53, 94, 66]])
     max_y_axis = np.min(mp, axis=1)
     max_x_axis = np.max(mp, axis=0)
@@ -113,7 +113,8 @@ def ejercicio_12() -> tuple[np.ndarray, np.ndarray]:
 def main() -> None:
     """🚀 Función principal de la clase 01"""
     module = inspect.currentframe()
-    run_exercises_from_main(module)
+    if module:
+        run_exercises_from_main(module)
 
 
 if __name__ == "__main__":

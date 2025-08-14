@@ -1,5 +1,12 @@
 set shell := ['nu', '-c']
 
+[private]
+default:
+  just -l
+
+cli:
+    uv run src/cli.py --help
+
 test args="":
     uv run src/cli.py  test {{args}}
 

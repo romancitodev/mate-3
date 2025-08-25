@@ -1,8 +1,6 @@
 """🧪 Tests para la Clase 01
 
 Tests unitarios para verificar la implementación de los ejercicios.
-Para agregar nuevos tests, simplemente añade métodos test_* a la clase TestClase01
-o crea funciones test_* fuera de la clase.
 """
 
 import pytest

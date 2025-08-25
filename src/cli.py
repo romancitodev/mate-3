@@ -43,7 +43,7 @@ def new(numero: int) -> None:
     """📚 Create new class"""
     clase_dir = Path(f"src/clase_{numero:02d}")
     test_file = Path(f"tests/test_clase_{numero:02d}.py")
-
+    
     # Create class directory
     clase_dir.mkdir(parents=True, exist_ok=True)
 

@@ -5,6 +5,8 @@ description = "🧮 Template Moderno para Estudio de Matemáticas"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+  "matplotlib>=3.10.6",
+  "networkx>=3.5",
   "numpy>=2.3.2",
   "pandas>=2.3.2",
   "polars>=1.32.2",

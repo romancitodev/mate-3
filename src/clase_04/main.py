@@ -30,7 +30,7 @@ def ejercicio_1():
 # A partir de aca, vienen todos lo ejercicios de regex
 def ejercicio_2():
     data = "bat, lat, mat, bet, let, met, bit, lit, mit, bot, lot, mot"
-    return re.findfall("b[ao]t", data)
+    return re.findall("b[ao]t", data)
 
 
 def ejercicio_3():

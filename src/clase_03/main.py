@@ -220,9 +220,44 @@ def ejercicio_6():
     ]
     graph = nx.DiGraph()
     graph.add_weighted_edges_from(edges)
-    shortest_path = nx.shortest_path(graph, source="A", target="H", weight="weight")
-    print(f"El camino más corto de A a H es: {shortest_path}")
+    shortest_path = nx.dijkstra_path_length(
+        graph, source="A", target="H", weight="weight"
+    )
+    print(f"Combustible: {shortest_path}")
 
+
+def ejercicio_7():
+    """Se considera el grafo ponderado G de�nido por la siguiente tabla, donde los vértices representan ciudades y las aristas representan rutas existentes entre las poblaciones. Los pesos indican longitudes en Kms."""
+    edges = [
+        ("A", "B", 20),
+        ("A", "F", 34),
+        ("A", "I", 45),
+        ("B", "C", 20),
+        ("B", "F", 10),
+        ("B", "I", 26),
+        ("C", "D", 28),
+        ("C", "I", 22),
+        ("D", "G", 18),
+        ("D", "H", 19),
+        ("D", "I", 13),
+        ("E", "F", 22),
+        ("E", "G", 12),
+        ("E", "H", 25),
+        ("F", "G", 30),
+        ("F", "I", 12),
+        ("G", "H", 16),
+        ("G", "I", 14),
+        ("H", "I", 32)
+    ]
+    graph = nx.Graph()
+    graph.add_weighted_edges_from(edges)
+    src = dict(nx.single_source_dijkstra_path(graph, "A"))
+    print(src)
+    src = dict(nx.single_source_dijkstra_path_length(graph, "A"))
+    print(src)
+
+    delta = nx.dijkstra_path_length(graph, "A", "B") + nx.dijkstra_path_length(graph, "G", "H")
+    print(f"{68 - delta} kms para la nueva ruta")
 
 def main():
     """Run all exercises"""
